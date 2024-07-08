@@ -1,7 +1,11 @@
 
 let humanScore = 0;
 let computerScore = 0;
-
+const rockBtn = document.getElementById("rock");
+const paperBtn = document.getElementById("paper");
+const scissorsBtn = document.getElementById("scissors");
+const resultDiv = document.getElementById("resultDiv");
+const score = document.getElementById("score")
 
 function getComputerChoice() {
     let result = ""
@@ -55,38 +59,23 @@ function playRound(humanChoice, computerChoice) {
 
     switch (result) {
         case -1:
-            console.log('You lose ! ' + computerChoice + ' beats ' + humanChoice);
+            resultDiv.innerText = 'You lose ! ' + computerChoice + ' beats ' + humanChoice;
             computerScore++;
             break;
         case 0:
-            console.log('Draw !');
+            resultDiv.innerText = 'Draw !';
             break;
         case 1:
-            console.log('You Win ! ' + humanChoice + ' beats ' + computerChoice);
+            resultDiv.innerText = 'You Win ! ' + humanChoice + ' beats ' + computerChoice;
             humanScore++;
             break;
     }
-
+    score.innerText = 'You ' + humanScore + ' | ' + computerScore + ' Computer';
+    if (humanScore >= 5) score.innerText = 'You Win ! ' + 'You ' + humanScore + ' | ' + computerScore + ' Computer';
+    if (computerScore >= 5) score.innerText = 'Computer Win ! ' + 'You ' + humanScore + ' | ' + computerScore + ' Computer';
 }
 
-function playGame() {
-    let n = 0
-    while (n < 5) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection)
-        console.log('You : ' + humanScore + ' Computer : ' + computerScore);
-        n++
-    }
-    console.log('Your Score : ' + humanScore + ' Computer\'s score : ' + computerScore);
-    if (humanScore > computerScore) {
-        console.log('Congratulation ! You Won the game !')
-    } else if (computerScore > humanScore) {
-        console.log('Too bad you lost the game...')
-    } else {
-        console.log('Draw !!!')
 
-    }
-}
-
-playGame()
+rockBtn.addEventListener("click", () => playRound('rock', getComputerChoice()));
+paperBtn.addEventListener("click", () => playRound('paper', getComputerChoice()));
+scissorsBtn.addEventListener("click", () => playRound('scissors', getComputerChoice()));
